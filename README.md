@@ -1,0 +1,2 @@
+# discourse-image-comparison-slider
+ 
