@@ -9,3 +9,5 @@ plugins:
     default: 50
     min: 0
     max: 100
+  add_slider_images_prompt:
+    default: "Add two images"
