@@ -1,0 +1,4 @@
+en:
+  site_settings:
+    default_direction: 'Default direction'
+    default_amount: 'Default slider amount (0% is left, 50% is middle, 100% is right)'

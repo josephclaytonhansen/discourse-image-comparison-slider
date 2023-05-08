@@ -1,0 +1,11 @@
+plugins:
+  default_direction:
+    default: horizontal
+    type: enum
+    choices:
+      - horizontal
+      - vertical
+  default_amount:
+    default: 50
+    min: 0
+    max: 100
