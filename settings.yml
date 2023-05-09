@@ -15,7 +15,7 @@ button_icon:
 button_text:
   default: "Image Comparison Slider"
 slider_divider_color:
-  default: "#1B1F26";
+  default: "#1B1F26"
 slider_divider_width:
   default: 4
   min: 0
