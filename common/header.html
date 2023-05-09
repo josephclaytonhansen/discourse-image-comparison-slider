@@ -1,13 +1,13 @@
 <script type="text/discourse-plugin" version="0.0.1">
 
-  let componentSelector = 'div[data-image-comparison-slider]',
-        componentName = 'image-comparison-slider';
-    
-
-        function componentPrep(cooked){
-    cooked.querySelectorAll(componentSelector).forEach(slider => {
+  function componentPrep(cooked)
+  {
+    console.log("decorate cooked")
+    cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
       slider.style.backgroundColor = "red;"
-    })}
+      console.log(slider);
+    })
+  }
 
 
     let translations = I18n.translations[I18n.currentLocale()].js;
