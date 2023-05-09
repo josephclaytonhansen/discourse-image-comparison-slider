@@ -1,6 +1,6 @@
 <script defer src="https://unpkg.com/img-comparison-slider@7/dist/index.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@7/dist/styles.css" />
-
+<link rel="stylesheet" href="common.css" />
 <script type="text/discourse-plugin" version="0.0.1">
 
   function extractImages(html){
@@ -29,11 +29,6 @@ function stackImages(imgs){
       let finalHTML = stackImages(imgs);
       slider.innerHTML = finalHTML;
       console.log(slider);
-    })
-    cooked.querySelectorAll(".divider:after").forEach(d => {
-      d.style.borderColor = "slider_divider_color!important";
-      d.style.borderStyle = "solid!important";
-      d.style.borderLeftWidth = "slider_divider_width!important";
     })
   }
 
