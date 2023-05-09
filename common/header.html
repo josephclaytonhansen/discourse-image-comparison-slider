@@ -17,7 +17,7 @@ function extractImages(html){
     cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
       slider.style.backgroundColor = "##1B1F26";
       slider.style.color = "#1B1F26";
-      let imgs = extractImages(slider.innerHTML);
+      let imgs = extractImages(slider);
       let finalHTML = imgs.join(" ");
       slider.innerHTML = finalHTML;
       console.log(slider);
