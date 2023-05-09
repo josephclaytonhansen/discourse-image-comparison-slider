@@ -1,0 +1,7 @@
+{
+  "name": "Image Comparison Slider",
+  "about_url": "",
+  "component": true,
+  "license_url": "https://www.gnu.org/licenses/agpl-3.0.en.html",
+  "minimum_discourse_version": "2.5.0.beta4"
+}
