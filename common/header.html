@@ -30,6 +30,11 @@ function stackImages(imgs){
       slider.innerHTML = finalHTML;
       console.log(slider);
     })
+    document.querySelectorAll(".colored-slider").forEach(e => {
+      e.style.setProperty("--divider-width", "slider_divider_width");
+      e.style.setProperty("--default-handle-color", "slider_handle_color");
+      e.style.setProperty("--divider-color", "slider_divider_color");
+    })
   }
 
 
