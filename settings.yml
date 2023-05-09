@@ -9,4 +9,4 @@ add_images_prompt:
 button_icon:
   default: "bolt"
 button_text:
-  default: "Image Comparison Slider"
+  default: "Image comparison slider"
