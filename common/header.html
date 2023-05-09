@@ -16,7 +16,8 @@ function stackImages(imgs){
   console.log(imgs[0]);
   var left = ["<img slot='first' src='", imgs[0], "'/>"].join('');
   var right = ["<img slot='second' src='", imgs[1], "'/>"].join('');
-  return ["<img-comparison-slider class = 'colored-slider'>", left, right, "</img-comparison-slider>"].join('')
+  var direction = "default_direction"
+  return ["<img-comparison-slider class = 'colored-slider' direction = '", direction,"'>", left, right, "</img-comparison-slider>"].join('')
 }
 
 
