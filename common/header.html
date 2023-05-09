@@ -23,12 +23,10 @@ function stackImages(imgs){
 
   function componentPrep(cooked)
   {
-    console.log("decorate cooked")
     cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
       let imgs = extractImages(slider);
       let finalHTML = stackImages(imgs);
       slider.innerHTML = finalHTML;
-      console.log(slider);
     })
   }
 
