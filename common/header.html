@@ -1,11 +1,13 @@
-<script type = "text/discourse-plugin" version = "0.0.1">
-    
-    let componentSelector = 'div[image-comparison-slider]',
+<script type="text/discourse-plugin" version="0.0.1">
+
+  let componentSelector = 'div[image-comparison-slider]',
         componentName = 'image-comparison-slider';
     
+
+        function componentPrep(cooked){
     cooked.querySelectorAll(componentSelector).forEach(slider => {
       slider.innerHTML = "<span style = 'background-color:red;color:white;'>This has been cooked!</span>"
-    })
+    })}
 
 
     let translations = I18n.translations[I18n.currentLocale()].js;
@@ -19,6 +21,13 @@
     translations.button_text = settings.button_text;
     translations.composer.add_images_prompt =
       settings.add_images_prompt;
+
+
+    api.decorateCookedElement(componentPrep, {
+        onlyStream: false, 
+        id: 'image-comparison-slider'
+      });
+
 
     api.onToolbarCreate(function(toolbar){
         toolbar.addButton({
