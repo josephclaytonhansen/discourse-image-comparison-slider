@@ -15,9 +15,9 @@
 
 function stackImages(imgs){
   console.log(imgs[0]);
-  var left = ["<img slot='first' src='", imgs[0], "'/>"].join();
-  var right = ["<img slot='second' src='", imgs[1], "'/>"].join();
-  return ["<img-comparison-slider>", left, right, "</img-comparison-slider>"].join()
+  var left = ["<img slot='first' src='", imgs[0], "'/>"].join('');
+  var right = ["<img slot='second' src='", imgs[1], "'/>"].join('');
+  return ["<img-comparison-slider>", left, right, "</img-comparison-slider>"].join('')
 }
 
 
