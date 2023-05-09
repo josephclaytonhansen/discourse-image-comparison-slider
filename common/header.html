@@ -30,7 +30,7 @@ function stackImages(imgs){
       slider.innerHTML = finalHTML;
       console.log(slider);
     })
-    cooked.querySelectorAll(".divider").forEach(d => {
+    cooked.querySelectorAll(".divider:after").forEach(d => {
       d.style.borderColor = "slider_divider_color";
       d.style.borderStyle = "solid";
       d.style.borderLeftWidth = "slider_divider_width";
