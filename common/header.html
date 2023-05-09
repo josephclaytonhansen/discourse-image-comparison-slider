@@ -28,7 +28,7 @@ function stackImages(imgs){
       let imgs = extractImages(slider);
       let finalHTML = stackImages(imgs);
       slider.innerHTML = finalHTML;
-      var d = slider.querySelector(".divider");
+      var d = document.querySelector(".divider");
       d.style.borderColor = "slider_divider_color";
       d.style.borderStyle = "solid";
       d.style.borderLeftWidth = "slider_divider_width";
