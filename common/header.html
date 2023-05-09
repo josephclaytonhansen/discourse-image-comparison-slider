@@ -1,12 +1,12 @@
 <script type="text/discourse-plugin" version="0.0.1">
 
-  let componentSelector = 'div[image-comparison-slider]',
+  let componentSelector = 'div[data-image-comparison-slider]',
         componentName = 'image-comparison-slider';
     
 
         function componentPrep(cooked){
     cooked.querySelectorAll(componentSelector).forEach(slider => {
-      slider.innerHTML = "<span style = 'background-color:red;color:white;'>This has been cooked!</span>"
+      slider.style.backgroundColor = "red;"
     })}
 
 
@@ -37,7 +37,7 @@
             icon: "bolt",
             title: "image-comparison-slider",
             perform: e => e.applySurround(
-                "<div image-comparison-slider>\n\n",
+                "<div data-image-comparison-slider>\n\n",
                 "\n\n</div>",
                 "add_images_prompt",
                 { multiline: false }
