@@ -1,4 +1,17 @@
 <script type = "text/discourse-plugin" version = "0.0.1">
+ 
+    let translations = I18n.translations[I18n.currentLocale()].js;
+
+    if (!translations) {
+      translations = {};
+    }
+    if (!translations.composer) {
+      translations.composer = {};
+    }
+    translations.button_text = settings.button_text;
+    translations.composer.add_images_prompt =
+      settings.add_images_prompt;
+
     api.onToolbarCreate(function(toolbar){
         toolbar.addButton({
             trimLeading: true,
