@@ -7,16 +7,16 @@
   const imgs = html.querySelectorAll("img");
   var length = [...imgs].length;
   if (length > 0){
-    return [imgs[0].outerHTML, imgs[1].outerHTML];
+    return [imgs[0].src, imgs[1].src];
   } else {
     return ["No image found", "No image found"]
   }
 }
 
 function stackImages(imgs){
-  console.log(imgs[0].src);
-  var left = ["<img slot='first' src='", imgs[0].src, "'/>"].join();
-  var right = ["<img slot='second' src='", imgs[1].src, "'/>"].join();
+  console.log(imgs[0]);
+  var left = ["<img slot='first' src='", imgs[0], "'/>"].join();
+  var right = ["<img slot='second' src='", imgs[1], "'/>"].join();
   return ["<img-comparison-slider>", left, right, "</img-comparison-slider>"].join()
 }
 
