@@ -28,10 +28,10 @@ function stackImages(imgs){
       let imgs = extractImages(slider);
       let finalHTML = stackImages(imgs);
       slider.innerHTML = finalHTML;
-      
-      slider.style.setProperty('--divider-color', "slider_divider_color");
-      slider.style.setProperty('--divider-width', "slider_divider_width");
-      slider.style.setProperty('--default-handle-color', "slider_handle_color");
+      var d = document.querySelector(":host");
+      d.style.setProperty('--divider-color', "slider_divider_color");
+      d.style.setProperty('--divider-width', "slider_divider_width");
+      d.style.setProperty('--default-handle-color', "slider_handle_color");
       console.log(slider);
     })
   }
