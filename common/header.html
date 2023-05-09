@@ -1,0 +1,17 @@
+<script type = "text/discourse-plugin" version = "0.0.1">
+    api.onToolbarCreate(function(toolbar){
+        toolbar.addButton({
+            trimLeading: true,
+            id: "image-comparison-slider",
+            group: "insertions",
+            icon: "bolt",
+            title: "image-comparison-slider",
+            perform: e => e.applySurround(
+                "<div image-comparison-slider>\n\n",
+                "\n\n</div>",
+                "add_images_prompt",
+                { multiline: false }
+            )
+        });
+    });
+</script>

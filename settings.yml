@@ -1,13 +1,16 @@
-plugins:
-  default_direction:
-    default: horizontal
-    type: enum
-    choices:
-      - horizontal
-      - vertical
-  default_amount:
-    default: 50
-    min: 0
-    max: 100
-  add_slider_images_prompt:
-    default: "Add two images"
+default_direction:
+  default: horizontal
+  type: enum
+  choices:
+    - horizontal
+    - vertical
+default_amount:
+  default: 50
+  min: 0
+  max: 100
+add_images_prompt:
+  default: "Add two images"
+button_icon:
+  default: "bolt"
+button_text:
+  default: "Image Comparison Slider"
