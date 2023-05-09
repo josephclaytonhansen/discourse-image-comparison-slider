@@ -19,6 +19,7 @@ function extractImages(html){
       slider.style.color = "#1B1F26";
       let imgs = extractImages(slider.innerHTML);
       let finalHTML = imgs.join(" ");
+      slider.innerHTML = finalHTML;
       console.log(slider);
     })
   }
