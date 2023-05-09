@@ -4,21 +4,9 @@ default_direction:
   choices:
     - horizontal
     - vertical
-default_amount:
-  default: 50
-  min: 0
-  max: 100
 add_images_prompt:
   default: "Add two images"
 button_icon:
   default: "bolt"
 button_text:
   default: "Image Comparison Slider"
-slider_divider_color:
-  default: "#1B1F26"
-slider_divider_width:
-  default: 4
-  min: 0
-  max: 20
-slider_handle_color:
-  default: "#242933"
