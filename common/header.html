@@ -29,7 +29,7 @@ function stackImages(imgs){
       let finalHTML = stackImages(imgs);
       slider.innerHTML = finalHTML;
       console.log(slider);
-      var d = document.querySelectorAll(".colored-slider").forEach(e => {
+      document.querySelectorAll(".colored-slider").forEach(e => {
         d.style.setProperty("--divider-width", settings.slider_divider_width)
         d.style.setProperty("--divider-color", settings.slider_divider_color)
         d.style.setProperty("--default-handle-color", settings.slider_handle_color)
