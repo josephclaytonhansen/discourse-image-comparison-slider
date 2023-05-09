@@ -1,6 +1,9 @@
+<script defer src="https://unpkg.com/img-comparison-slider@7/dist/index.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@7/dist/styles.css" />
+
 <script type="text/discourse-plugin" version="0.0.1">
 
-function extractImages(html){
+  function extractImages(html){
   const imgs = html.querySelectorAll("img");
   var length = [...imgs].length;
   if (length > 0){
@@ -8,6 +11,12 @@ function extractImages(html){
   } else {
     return ["No image found", "No image found"]
   }
+}
+
+function stackImages(imgs){
+  var left = ["<img slot='first' src='", imgs[0].src, "'/>"].join();
+  var right = ["<img slot='second' src='", imgs[1].src, "'/>"].join();
+  return ["<img-comparison-slider>", left, right, "</img-comparison-slider>"].join()
 }
 
 
@@ -18,7 +27,7 @@ function extractImages(html){
       slider.style.backgroundColor = "##1B1F26";
       slider.style.color = "#1B1F26";
       let imgs = extractImages(slider);
-      let finalHTML = imgs.join(" ");
+      let finalHTML = stackImages(imgs);
       slider.innerHTML = finalHTML;
       console.log(slider);
     })
