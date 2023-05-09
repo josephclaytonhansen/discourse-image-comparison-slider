@@ -1,12 +1,24 @@
 <script type="text/discourse-plugin" version="0.0.1">
 
+function extractImages(html){
+  const imgs = html.querySelectorAll("img");
+  var length = [...imgs].length;
+  if (length > 0){
+    return [imgs[0].outerHTML, imgs[1].outerHTML];
+  } else {
+    return ["No image found", "No image found"]
+  }
+}
+
+
   function componentPrep(cooked)
   {
     console.log("decorate cooked")
     cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
       slider.style.backgroundColor = "##1B1F26";
       slider.style.color = "#1B1F26";
-      slider.innerHTML = "<p>This has been replaced!</p>"
+      let imgs = extractImages(slider.innerHTML);
+      let finalHTML = imgs.join(" ");
       console.log(slider);
     })
   }
