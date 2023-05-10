@@ -24,11 +24,10 @@ function stackImages(imgs){
   function componentPrep(cooked)
   {
     cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
-      console.log(slider);
-      console.log(slider.getAttribute('direction'));
       let imgs = extractImages(slider);
       let finalHTML = stackImages(imgs);
       slider.innerHTML = finalHTML;
+      console.log(slider.firstChild.getAttribute('direction'));
     })
   }
 
