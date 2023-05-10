@@ -25,7 +25,7 @@ function stackImages(imgs, d){
   {
     cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
       let imgs = extractImages(slider);
-      let finalHTML = stackImages(imgs, "horizontal");
+      let finalHTML = stackImages(imgs, settings.default_direction);
       slider.innerHTML = finalHTML;
     })
     cooked.querySelectorAll('div[data-image-comparison-slider][data-direction-horizontal]').forEach(slider => {
