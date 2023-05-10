@@ -18,6 +18,6 @@ Thanks to https://github.com/sneas/img-comparison-slider for their img-compariso
 * Customizable admin settings
 * Lightweight 
 
+## User can choose vertical or horizontal slider: 
+https://github.com/josephclaytonhansen/discourse-image-comparison-slider/assets/45859835/b44e807e-de07-4e4d-bbfb-c6f23b084bda
 
-
- 
