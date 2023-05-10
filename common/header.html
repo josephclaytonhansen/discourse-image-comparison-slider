@@ -24,6 +24,8 @@ function stackImages(imgs){
   function componentPrep(cooked)
   {
     cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
+      console.log(slider);
+      console.log(slider.getAttribute('direction'));
       let imgs = extractImages(slider);
       let finalHTML = stackImages(imgs);
       slider.innerHTML = finalHTML;
@@ -58,7 +60,7 @@ function stackImages(imgs){
             icon: "bolt",
             title: "image-comparison-slider",
             perform: e => e.applySurround(
-                "<div data-image-comparison-slider>\n\n",
+                "<div data-image-comparison-slider direction = 'horizontal'>\n\n",
                 "\n\n</div>",
                 "add_images_prompt",
                 { multiline: false }
