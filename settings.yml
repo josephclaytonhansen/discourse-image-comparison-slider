@@ -5,7 +5,7 @@ default_direction:
     - horizontal
     - vertical
 add_images_prompt:
-  default: "*Add two images here.* Change 'data-direction-horizontal' to 'data-direction-vertical' for a vertical slider."
+  default: "Add two images here. Change 'data-direction-horizontal' to 'data-direction-vertical' for a vertical slider."
 button_icon:
   default: "bolt"
 button_text:
