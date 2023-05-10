@@ -69,7 +69,7 @@ function stackImages(imgs, d){
             icon: "bolt",
             title: "image-comparison-slider",
             perform: e => e.applySurround(
-                "<div data-image-comparison-slider data-direction-horizontal>\n\n",
+                ["<div data-image-comparison-slider data-direction-",settings.default_direction,">\n\n"].join(''),
                 "\n\n</div>",
                 "add_images_prompt",
                 { multiline: false }
