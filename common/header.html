@@ -12,22 +12,27 @@
   }
 }
 
-function stackImages(imgs){
+function stackImages(imgs, d){
   console.log(imgs[0]);
   var left = ["<img slot='first' src='", imgs[0], "'/>"].join('');
   var right = ["<img slot='second' src='", imgs[1], "'/>"].join('');
-  var direction = settings.default_direction;
+  var direction = d;
   return ["<img-comparison-slider class = 'colored-slider' direction = '", direction,"'>", left, right, "</img-comparison-slider>"].join('')
 }
 
 
   function componentPrep(cooked)
   {
-    cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
+
+    cooked.querySelectorAll('div[data-image-comparison-slider][data-direction-horizontal]').forEach(slider => {
       let imgs = extractImages(slider);
-      let finalHTML = stackImages(imgs);
+      let finalHTML = stackImages(imgs, "horizontal");
       slider.innerHTML = finalHTML;
-      console.log(slider.firstChild.getAttribute('direction'));
+    })
+    cooked.querySelectorAll('div[data-image-comparison-slider][data-direction-vertical]').forEach(slider => {
+      let imgs = extractImages(slider);
+      let finalHTML = stackImages(imgs, "vertical");
+      slider.innerHTML = finalHTML;
     })
   }
 
@@ -59,7 +64,7 @@ function stackImages(imgs){
             icon: "bolt",
             title: "image-comparison-slider",
             perform: e => e.applySurround(
-                "<div data-image-comparison-slider direction = 'horizontal'>\n\n",
+                "<div data-image-comparison-slider data-direction-horizontal>\n\n",
                 "\n\n</div>",
                 "add_images_prompt",
                 { multiline: false }
