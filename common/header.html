@@ -34,6 +34,11 @@ function stackImages(imgs, d){
       let finalHTML = stackImages(imgs, "vertical");
       slider.innerHTML = finalHTML;
     })
+    cooked.querySelectorAll('div[data-image-comparison-slider]').forEach(slider => {
+      let imgs = extractImages(slider);
+      let finalHTML = stackImages(imgs, "horizontal");
+      slider.innerHTML = finalHTML;
+    })
   }
 
 
