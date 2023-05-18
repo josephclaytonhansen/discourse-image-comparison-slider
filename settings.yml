@@ -10,3 +10,9 @@ button_icon:
   default: "bolt"
 button_text:
   default: "Image comparison slider"
+handle_arrow_style:
+  type: enum
+  default: line
+  choices:
+    - line
+    - solid

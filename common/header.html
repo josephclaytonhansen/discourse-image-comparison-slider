@@ -20,6 +20,9 @@ function stackImages(imgs, d){
   var left = ["<img slot='first' src='", imgs[0], "'/>"].join('');
   var right = ["<img slot='second' src='", imgs[1], "'/>"].join('');
   var direction = d;
+  if (settings.handle_arrow_style == "solid"){
+    right = right + '<svg slot="handle" xmlns="http://www.w3.org/2000/svg" width="100" viewBox="-8 -3 16 6"><path stroke="#fff" d="M -5 -2 L -7 0 L -5 2 M -5 -2 L -5 2 M 5 -2 L 7 0 L 5 2 M 5 -2 L 5 2" stroke-width="1" fill="#fff" vector-effect="non-scaling-stroke"></path></svg>'
+  }
   return ["<img-comparison-slider class = 'colored-slider' direction = '", direction,"'>", left, right, "</img-comparison-slider>"].join('')
 }
 
