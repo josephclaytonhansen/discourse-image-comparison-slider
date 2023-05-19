@@ -5,6 +5,6 @@
     --default-handle-shadow: 0px 0px 1px 3px rgba(37, 35, 35, 0.8);
 }
 
-#handle{
-    cursor: pointer;
+.handle{
+    cursor: grab!important;
 }
