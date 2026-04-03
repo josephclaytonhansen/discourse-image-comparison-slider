@@ -41,14 +41,18 @@ export default apiInitializer("1.8.0", (api) => {
         slider.innerHTML = finalHTML;
       });
     cooked
-      .querySelectorAll("div[data-image-comparison-slider][data-direction-horizontal]")
+      .querySelectorAll(
+        "div[data-image-comparison-slider][data-direction-horizontal]"
+      )
       .forEach((slider) => {
         let imgs = extractImages(slider);
         let finalHTML = stackImages(imgs, "horizontal");
         slider.innerHTML = finalHTML;
       });
     cooked
-      .querySelectorAll("div[data-image-comparison-slider][data-direction-vertical]")
+      .querySelectorAll(
+        "div[data-image-comparison-slider][data-direction-vertical]"
+      )
       .forEach((slider) => {
         let imgs = extractImages(slider);
         let finalHTML = stackImages(imgs, "vertical");
