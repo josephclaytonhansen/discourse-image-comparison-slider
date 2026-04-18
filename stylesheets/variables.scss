@@ -1,0 +1,31 @@
+.d-ic {
+  // Base
+  --ic-line-width: 2px;
+  --ic-line-color: var(--secondary);
+  --ic-line-shadow: 0 0 15px rgb(from var(--secondary) r g b / 0.33);
+  --ic-arrow-size: calc(30px * var(--ic-scale, 1));
+  --ic-arrow-scale: 1.5;
+  --ic-arrow-offset: -30%;
+  --ic-arrow-hover-offset: 0;
+  --ic-handle-size: var(--ic-arrow-size);
+  --ic-caption-color: var(--primary-medium);
+  --ic-border-radius: 0;
+
+  // Default style
+  --ic-arrow-fill: var(--ic-line-color);
+  --ic-arrow-stroke: none;
+  --ic-arrow-stroke-width: 0;
+
+  // Circle style
+  &.d-ic--circle {
+    --ic-circle-size: calc(50px * var(--ic-scale, 1));
+    --ic-circle-border: 2px solid var(--ic-line-color);
+    --ic-circle-blur: 5px;
+    --ic-arrow-fill: transparent;
+    --ic-arrow-stroke: var(--ic-line-color);
+    --ic-arrow-stroke-width: 3;
+    --ic-arrow-size: calc(var(--ic-circle-size) / 3);
+    --ic-arrow-offset: 10%;
+    --ic-arrow-hover-offset: 25%;
+  }
+}

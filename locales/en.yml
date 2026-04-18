@@ -1,8 +1,60 @@
 en:
   theme_metadata:
-    description: A theme component that creates draggable image comparison sliders.
+    description: A theme component for before/after image comparison sliders.
     settings:
-      button_icon: Choose an icon for the slider button in the composer.
-      button_text: Choose the tooltip text for the button in the composer.
-      add_images_prompt: Choose the placeholder text that appears in the composer upon button click. 
-      handle_arrow_style: Choose the style of the < > icons around the draggable handle
+      default_orientation: Default slider orientation.
+      default_position: Default handle start position (0-100).
+      show_labels: Show before/after labels by default.
+      handle_style: Handle grip style.
+      default_handle_color: Default handle color (empty for theme default).
+      default_label_position: Default label position.
+  image_compare:
+    aria_label: "Image comparison slider"
+    before_label: "Before"
+    after_label: "After"
+    zoom:
+      in: "Zoom in"
+      out: "Zoom out"
+      reset: "Reset zoom"
+    lightbox:
+      open: "View full images"
+    fullscreen:
+      enter: "View fullscreen"
+      exit: "Exit fullscreen"
+    composer:
+      insert_slider: "Image comparison"
+      toolbar:
+        edit: "Edit images"
+        validate: "Done editing"
+        settings: "Settings"
+        delete: "Delete comparison"
+      settings:
+        orientation: "Orientation"
+        orientation_horizontal: "Horizontal"
+        orientation_vertical: "Vertical"
+        position: "Starting position"
+        show_labels: "Show"
+
+        style: "Handle style"
+        style_line: "Line"
+        style_circle: "Circle"
+
+        color: "Handle color"
+
+        label: "Labels"
+        label_position_start: "Start"
+        label_position_center: "Center"
+        label_position_end: "End"
+        before_label_placeholder: "Before label…"
+        after_label_placeholder: "After label…"
+
+        caption: "Caption"
+        caption_placeholder: "Optional caption…"
+        clear: "Clear"
+
+        settings: "Settings"
+
+      edit:
+        swap: "Swap images"
+        before_slot: "Before"
+        after_slot: "After"
