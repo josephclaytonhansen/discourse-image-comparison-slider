@@ -27,6 +27,7 @@ en:
       exit: "Exit fullscreen"
     composer:
       insert_slider: "Image comparison"
+      size_mismatch: "The before and after images are different sizes — the second image is cropped to fit. Use same-size images for the best alignment."
       toolbar:
         edit: "Edit images"
         validate: "Done editing"

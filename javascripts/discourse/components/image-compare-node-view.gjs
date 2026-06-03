@@ -5,6 +5,7 @@ import { next } from "@ember/runloop";
 import { service } from "@ember/service";
 import ToolbarButtons from "discourse/components/composer/toolbar-buttons";
 import DButton from "discourse/components/d-button";
+import icon from "discourse/helpers/d-icon";
 import { ToolbarBase } from "discourse/lib/composer/toolbar";
 import { not } from "discourse/truth-helpers";
 import { composerI18n as i18nKey } from "../lib/image-compare/i18n";
@@ -128,6 +129,24 @@ export default class ImageCompareNodeView extends Component {
 
   get hasImages() {
     return this.imageNodes.length >= 2;
+  }
+
+  get aspectMismatch() {
+    const ratio = (node) => {
+      const w = parseFloat(node?.attrs?.width);
+      const h = parseFloat(node?.attrs?.height);
+
+      return w > 0 && h > 0 ? w / h : null;
+    };
+
+    const before = ratio(this.imageNodes[0]);
+    const after = ratio(this.imageNodes[1]);
+
+    if (before === null || after === null) {
+      return false;
+    }
+
+    return Math.abs(before - after) / before > 0.02;
   }
 
   get beforeSrc() {
@@ -490,6 +509,12 @@ export default class ImageCompareNodeView extends Component {
       <div class="composer-ic-node__preview" contenteditable="false">
         <ImageCompare @data={{this.data}} />
       </div>
+      {{#if this.aspectMismatch}}
+        <div class="composer-ic-node__notice" contenteditable="false">
+          {{icon "circle-info"}}
+          <span>{{i18nKey "size_mismatch"}}</span>
+        </div>
+      {{/if}}
     {{/if}}
   </template>
 }
