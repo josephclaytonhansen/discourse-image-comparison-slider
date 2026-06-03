@@ -1,11 +1,11 @@
-import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import withEventValue from "discourse/helpers/with-event-value";
 import { isValidHandleColor } from "../../lib/image-compare/utils";
+import ToolBase from "./tool-base";
 
-export default class ColorTool extends Component {
+export default class ColorTool extends ToolBase {
   @tracked pending = null;
   animationFrame = null;
 
@@ -15,10 +15,6 @@ export default class ColorTool extends Component {
     }
 
     super.willDestroy(...arguments);
-  }
-
-  get config() {
-    return this.args.data.getConfig();
   }
 
   @action
@@ -68,14 +64,6 @@ export default class ColorTool extends Component {
     }
 
     this.pending = null;
-  }
-
-  @action
-  onKeydown(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      event.target.blur();
-    }
   }
 
   <template>

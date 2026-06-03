@@ -14,6 +14,7 @@ import icon from "discourse/helpers/d-icon";
 import { eq, not } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
 import { updateWrapAttribute } from "../lib/composer-utils";
+import { settingsMenuOptions } from "../lib/image-compare/menu";
 import ImageCompareUiState from "../lib/image-compare/ui-state";
 import {
   clampPosition,
@@ -26,7 +27,6 @@ import ImageCompareToolbar, {
   TOOLBAR_SURFACE_SELECTOR,
 } from "./image-compare-toolbar";
 
-const MENU_PADDING = 8;
 const ZOOM_MIN = 1;
 const ZOOM_MAX = 5;
 const ZOOM_STEP = 0.5;
@@ -73,6 +73,7 @@ export default class ImageCompare extends Component {
   fullscreenClosing = false;
   fullscreenCloseTimer = null;
   fullscreenPortal = null;
+  fullscreenReturnFocus = null;
 
   onFullscreenKeydown = (event) => {
     if (event.key === "Escape") {
@@ -326,6 +327,14 @@ export default class ImageCompare extends Component {
 
   get afterMarkup() {
     return this.#resolveMarkup(this.afterImage);
+  }
+
+  get beforeAlt() {
+    return this.beforeImage?.alt || this.beforeLabel || "";
+  }
+
+  get afterAlt() {
+    return this.afterImage?.alt || this.afterLabel || "";
   }
 
   get hasLightbox() {
@@ -590,9 +599,14 @@ export default class ImageCompare extends Component {
       this.fullscreenPortal = document.createElement("div");
       document.body.appendChild(this.fullscreenPortal);
     }
+    this.fullscreenReturnFocus = document.activeElement;
     this.isFullscreen = true;
     document.addEventListener("keydown", this.onFullscreenKeydown);
-    requestAnimationFrame(() => this.#animateFullscreen(false));
+
+    requestAnimationFrame(() => {
+      this.#animateFullscreen(false);
+      this.fullscreenPortal?.querySelector(".d-ic-fs")?.focus();
+    });
   }
 
   exitFullscreen() {
@@ -617,6 +631,8 @@ export default class ImageCompare extends Component {
     this.fullscreenClosing = false;
     this.isFullscreen = false;
     document.removeEventListener("keydown", this.onFullscreenKeydown);
+    this.fullscreenReturnFocus?.focus?.();
+    this.fullscreenReturnFocus = null;
   }
 
   #animateFullscreen(closing) {
@@ -825,6 +841,20 @@ export default class ImageCompare extends Component {
     if (this.pointers.size < 2) {
       this.pinchStart = null;
       this.isPinching = false;
+
+      // Hand off from pinch to single-finger pan: if a finger is still down
+      // and the image is zoomed, resume panning from its current position.
+      if (this.pointers.size === 1 && this.zoom > 1) {
+        const [remaining] = [...this.pointers.values()];
+        this.isPanning = true;
+        this.panMoved = false;
+        this.panStart = {
+          x: remaining.x,
+          y: remaining.y,
+          panX: this.panX,
+          panY: this.panY,
+        };
+      }
     }
 
     if (this.pointers.size === 0) {
@@ -915,35 +945,24 @@ export default class ImageCompare extends Component {
       return;
     }
 
-    this.settingsMenu = await this.menu.newInstance(anchor, {
-      identifier: `preview-ic-settings-${this.menuId}`,
-      component: ImageCompareToolbar,
-      closeOnClickOutside: false,
-      closeOnEscape: false,
-      closeOnScroll: false,
-      padding: MENU_PADDING,
-      trapTab: false,
-      placement: "top",
-      fallbackPlacements: ["top"],
-      modalForMobile: false,
-      portalOutletElement:
-        this.containerElement?.closest(".d-ic-container") ??
-        document.querySelector(".d-editor-preview"),
-      offset({ rects }) {
-        return {
-          mainAxis: -MENU_PADDING - rects.floating.height,
-        };
-      },
-      limitShift: {
-        offset: ({ rects, placement }) => ({
-          crossAxis:
-            (-rects.floating.height - MENU_PADDING) *
-            (placement.includes("top") ? -1 : 1),
-        }),
-      },
-      data: this.toolbarData,
-    });
+    const instance = await this.menu.newInstance(
+      anchor,
+      settingsMenuOptions({
+        identifier: `preview-ic-settings-${this.menuId}`,
+        component: ImageCompareToolbar,
+        data: this.toolbarData,
+        portalOutletElement:
+          this.containerElement?.closest(".d-ic-container") ??
+          document.querySelector(".d-editor-preview"),
+      })
+    );
 
+    if (this.isDestroying || this.isDestroyed) {
+      this.menu.close(instance);
+      return;
+    }
+
+    this.settingsMenu = instance;
     await this.settingsMenu.show();
   }
 
@@ -960,6 +979,10 @@ export default class ImageCompare extends Component {
 
   @action
   handleResize(entry) {
+    if (this.isDestroying || this.isDestroyed) {
+      return;
+    }
+
     this.calculateScale(entry.contentRect.width);
 
     const labels = entry.target?.querySelectorAll(".d-ic__label");
@@ -1028,7 +1051,7 @@ export default class ImageCompare extends Component {
             <img
               class="d-ic__image d-ic__image--before lightbox"
               src={{this.beforeSrc}}
-              alt={{this.beforeLabel}}
+              alt={{this.beforeAlt}}
               draggable="false"
             />
           {{/if}}
@@ -1041,7 +1064,7 @@ export default class ImageCompare extends Component {
             <img
               class="d-ic__image d-ic__image--after lightbox"
               src={{this.afterSrc}}
-              alt={{this.afterLabel}}
+              alt={{this.afterAlt}}
               draggable="false"
             />
           {{/if}}
@@ -1103,6 +1126,7 @@ export default class ImageCompare extends Component {
             disabled={{this.atMaxZoom}}
             @action={{this.zoomIn}}
             @icon="magnifying-glass-plus"
+            @translatedTitle={{this.zoomInLabel}}
           />
           <DButton
             class="d-ic__zoom-btn"
@@ -1110,6 +1134,7 @@ export default class ImageCompare extends Component {
             disabled={{this.atMinZoom}}
             @action={{this.zoomOut}}
             @icon="magnifying-glass-minus"
+            @translatedTitle={{this.zoomOutLabel}}
           />
           <DButton
             class="d-ic__zoom-btn"
@@ -1117,6 +1142,7 @@ export default class ImageCompare extends Component {
             disabled={{not this.isZoomed}}
             @action={{this.resetZoom}}
             @icon="rotate-left"
+            @translatedTitle={{this.resetZoomLabel}}
           />
           {{#if this.showFullscreenButton}}
             <div class="d-ic__controls-sep" aria-hidden="true"></div>
@@ -1126,6 +1152,7 @@ export default class ImageCompare extends Component {
                 aria-label={{this.lightboxLabel}}
                 @action={{this.openLightbox}}
                 @icon="images"
+                @translatedTitle={{this.lightboxLabel}}
               />
             {{/if}}
             <DButton
@@ -1133,6 +1160,7 @@ export default class ImageCompare extends Component {
               aria-label={{this.fullscreenLabel}}
               @action={{this.toggleFullscreen}}
               @icon={{this.fullscreenIcon}}
+              @translatedTitle={{this.fullscreenLabel}}
             />
           {{/if}}
         </div>
@@ -1146,7 +1174,14 @@ export default class ImageCompare extends Component {
     {{#if this.isFullscreen}}
       {{#in-element this.fullscreenPortal}}
         {{! template-lint-disable no-invalid-interactive }}
-        <div class="d-ic-fs" {{on "click" this.onOverlayClick}}>
+        <div
+          class="d-ic-fs"
+          role="dialog"
+          aria-modal="true"
+          aria-label={{this.fullscreenLabel}}
+          tabindex="-1"
+          {{on "click" this.onOverlayClick}}
+        >
           <ImageCompare @data={{this.fullscreenChildData}} />
           <DButton
             class="d-ic-fs__close"

@@ -38,12 +38,12 @@ export default class DidResizeModifier extends Modifier {
 
     this.element = element;
 
-    const [handler, shoudlListen = true, options] = positional;
+    const [handler, shouldListen = true, options] = positional;
 
     this.handler = handler;
     this.options = options ?? this.options;
 
-    if (shoudlListen) {
+    if (shouldListen) {
       this.observe();
     }
   }

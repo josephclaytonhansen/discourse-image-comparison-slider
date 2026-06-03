@@ -1,19 +1,12 @@
-import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import DButton from "discourse/components/d-button";
-import { i18n } from "discourse-i18n";
+import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
+import ToolBase from "./tool-base";
 
-const i18nKey = (key) =>
-  i18n(themePrefix(`image_compare.composer.settings.${key}`));
-
-export default class CaptionTool extends Component {
+export default class CaptionTool extends ToolBase {
   @tracked pending = null;
-
-  get config() {
-    return this.args.data.getConfig();
-  }
 
   get display() {
     return this.pending ?? this.config.caption;
@@ -38,14 +31,6 @@ export default class CaptionTool extends Component {
     }
 
     this.pending = null;
-  }
-
-  @action
-  onKeydown(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      event.target.blur();
-    }
   }
 
   @action

@@ -7,15 +7,13 @@ import ToolbarButtons from "discourse/components/composer/toolbar-buttons";
 import DButton from "discourse/components/d-button";
 import { ToolbarBase } from "discourse/lib/composer/toolbar";
 import { not } from "discourse/truth-helpers";
-import { i18n } from "discourse-i18n";
+import { composerI18n as i18nKey } from "../lib/image-compare/i18n";
+import { MENU_PADDING, settingsMenuOptions } from "../lib/image-compare/menu";
 import ImageCompareUiState from "../lib/image-compare/ui-state";
 import { normalizeConfig } from "../lib/image-compare/utils";
 import ImageCompare from "./image-compare";
 import ImageCompareToolbar from "./image-compare-toolbar";
 
-const i18nKey = (key) => i18n(themePrefix(`image_compare.composer.${key}`));
-
-const MENU_PADDING = 8;
 let menuIndex = 0;
 
 class LeftToolbar extends ToolbarBase {
@@ -85,8 +83,16 @@ export default class ImageCompareNodeView extends Component {
       this.args.dom.classList.add("edit");
 
       next(() => {
+        if (this.isDestroying || this.isDestroyed) {
+          return;
+        }
+
         const { view, getPos, node } = this.args;
         const pos = getPos();
+        if (typeof pos !== "number") {
+          return;
+        }
+
         const tr = view.state.tr.setNodeMarkup(pos, null, {
           ...node.attrs,
           mode: "edit",
@@ -207,13 +213,19 @@ export default class ImageCompareNodeView extends Component {
       },
     };
 
-    this.menuInstances = {
-      left: await this.menu.newInstance(this.args.dom, leftOptions),
-      right: await this.menu.newInstance(this.args.dom, rightOptions),
-    };
+    const left = await this.menu.newInstance(this.args.dom, leftOptions);
+    const right = await this.menu.newInstance(this.args.dom, rightOptions);
 
-    await this.menuInstances.left.show();
-    await this.menuInstances.right.show();
+    if (this.isDestroying || this.isDestroyed) {
+      left.close?.();
+      right.close?.();
+      return;
+    }
+
+    this.menuInstances = { left, right };
+
+    await left.show();
+    await right.show();
   }
 
   closeMenus() {
@@ -388,39 +400,26 @@ export default class ImageCompareNodeView extends Component {
       return;
     }
 
-    this.settingsMenu ??= await this.menu.newInstance(this.settingsAnchor, {
-      identifier: `composer-ic-settings-${this.menuId}`,
-      component: ImageCompareToolbar,
-      closeOnClickOutside: false,
-      closeOnEscape: false,
-      closeOnScroll: false,
-      padding: MENU_PADDING,
-      trapTab: false,
-      placement: "top",
-      fallbackPlacements: ["top"],
-      modalForMobile: false,
-      portalOutletElement: this.args.dom,
-      offset({ rects }) {
-        return {
-          mainAxis: -MENU_PADDING - rects.floating.height,
-        };
-      },
-      limitShift: {
-        offset: ({ rects, placement }) => {
-          return {
-            crossAxis:
-              (-rects.floating.height - MENU_PADDING) *
-              (placement.includes("top") ? -1 : 1),
-          };
+    const instance = await this.menu.newInstance(
+      this.settingsAnchor,
+      settingsMenuOptions({
+        identifier: `composer-ic-settings-${this.menuId}`,
+        component: ImageCompareToolbar,
+        portalOutletElement: this.args.dom,
+        data: {
+          getConfig: () => this.config,
+          updateSetting: this.updateSetting,
+          uiState: this.uiState,
         },
-      },
-      data: {
-        getConfig: () => this.config,
-        updateSetting: this.updateSetting,
-        uiState: this.uiState,
-      },
-    });
+      })
+    );
 
+    if (this.isDestroying || this.isDestroyed) {
+      this.menu.close(instance);
+      return;
+    }
+
+    this.settingsMenu = instance;
     await this.settingsMenu.show();
   }
 

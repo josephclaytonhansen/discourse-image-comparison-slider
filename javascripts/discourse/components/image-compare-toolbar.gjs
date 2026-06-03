@@ -11,16 +11,13 @@ import DMenu from "discourse/float-kit/components/d-menu";
 import concatClass from "discourse/helpers/concat-class";
 import icon from "discourse/helpers/d-icon";
 import { eq } from "discourse/truth-helpers";
-import { i18n } from "discourse-i18n";
+import { settingsI18n as i18nKey } from "../lib/image-compare/i18n";
 import dragPanel from "../modifiers/drag-panel";
 import CaptionTool from "./image-compare-toolbar/caption";
 import ColorTool from "./image-compare-toolbar/color";
 import LabelsTool from "./image-compare-toolbar/labels";
 import PositionTool from "./image-compare-toolbar/position";
 import StyleTool from "./image-compare-toolbar/style";
-
-const i18nKey = (key) =>
-  i18n(themePrefix(`image_compare.composer.settings.${key}`));
 
 export const TOOLBAR_SURFACE_SELECTOR = `
   .ic-toolbar,
@@ -101,10 +98,6 @@ export default class ImageCompareToolbar extends Component {
   isToolActive = (tool) => {
     return tool.activeFor?.(this.config) ?? false;
   };
-
-  willDestroy() {
-    super.willDestroy(...arguments);
-  }
 
   get openToolKey() {
     return this.uiState.openToolKey;

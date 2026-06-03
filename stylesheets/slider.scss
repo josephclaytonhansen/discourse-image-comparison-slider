@@ -127,7 +127,8 @@
 
     @include ic-toolbar-surface;
 
-    &.is-visible {
+    &.is-visible,
+    &:focus-within {
       opacity: 1;
       pointer-events: auto;
     }
@@ -206,6 +207,12 @@
     &:focus-visible .d-ic__circle {
       outline: 3px solid var(--tertiary);
       outline-offset: 2px;
+    }
+
+    &:focus-visible:not(:has(.d-ic__circle)) .d-ic__arrows {
+      outline: 2px solid var(--tertiary);
+      outline-offset: 6px;
+      border-radius: 999px;
     }
   }
 

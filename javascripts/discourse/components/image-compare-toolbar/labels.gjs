@@ -1,4 +1,3 @@
-import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
@@ -6,10 +5,8 @@ import { action } from "@ember/object";
 import DButton from "discourse/components/d-button";
 import DToggleSwitch from "discourse/components/d-toggle-switch";
 import { eq } from "discourse/truth-helpers";
-import { i18n } from "discourse-i18n";
-
-const i18nKey = (key) =>
-  i18n(themePrefix(`image_compare.composer.settings.${key}`));
+import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
+import ToolBase from "./tool-base";
 
 const LABEL_POSITIONS = [
   { value: "start", icon: "align-left", titleKey: "label_position_start" },
@@ -17,12 +14,8 @@ const LABEL_POSITIONS = [
   { value: "end", icon: "align-right", titleKey: "label_position_end" },
 ];
 
-export default class LabelsTool extends Component {
+export default class LabelsTool extends ToolBase {
   @tracked pending = {};
-
-  get config() {
-    return this.args.data.getConfig();
-  }
 
   get showLabels() {
     return this.config.showLabels !== false;
@@ -60,14 +53,6 @@ export default class LabelsTool extends Component {
     }
 
     this.pending = { ...this.pending, [key]: null };
-  }
-
-  @action
-  onKeydown(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      event.target.blur();
-    }
   }
 
   <template>

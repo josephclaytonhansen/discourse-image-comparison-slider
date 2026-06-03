@@ -124,11 +124,13 @@ class ImageCompareInit {
     }
 
     const previewSrc = imageNode.getAttribute("src") ?? null;
+    const alt = imageNode.getAttribute("alt") ?? "";
     const anchor = imageNode.closest("a.lightbox");
 
     if (!anchor) {
       return {
         previewSrc,
+        alt,
         fullSrc: null,
         previewMarkup: null,
         fullMarkup: null,
@@ -158,7 +160,7 @@ class ImageCompareInit {
       }
     }
 
-    return { previewSrc, fullSrc, previewMarkup, fullMarkup };
+    return { previewSrc, alt, fullSrc, previewMarkup, fullMarkup };
   }
 
   extractConfig(element) {

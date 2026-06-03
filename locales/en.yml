@@ -4,8 +4,8 @@ en:
     settings:
       default_orientation: Default slider orientation.
       default_position: Default handle start position (0-100).
-      show_labels: Show before/after labels by default.
-      handle_style: Handle grip style.
+      default_show_labels: Show before/after labels by default.
+      default_handle_style: Handle grip style.
       default_handle_color: Default handle color (empty for theme default).
       default_label_position: Default label position.
   image_compare:

@@ -1,4 +1,3 @@
-import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
@@ -6,13 +5,10 @@ import { action } from "@ember/object";
 import DButton from "discourse/components/d-button";
 import withEventValue from "discourse/helpers/with-event-value";
 import { eq } from "discourse/truth-helpers";
+import ToolBase from "./tool-base";
 
-export default class PositionTool extends Component {
+export default class PositionTool extends ToolBase {
   @tracked pending = null;
-
-  get config() {
-    return this.args.data.getConfig();
-  }
 
   get display() {
     return this.pending ?? this.config.position;

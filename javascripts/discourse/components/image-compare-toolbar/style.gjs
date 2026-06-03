@@ -1,12 +1,9 @@
-import Component from "@glimmer/component";
 import { fn } from "@ember/helper";
 import DButton from "discourse/components/d-button";
 import concatClass from "discourse/helpers/concat-class";
 import { eq } from "discourse/truth-helpers";
-import { i18n } from "discourse-i18n";
-
-const i18nKey = (key) =>
-  i18n(themePrefix(`image_compare.composer.settings.${key}`));
+import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
+import ToolBase from "./tool-base";
 
 const STYLES = [
   {
@@ -19,11 +16,7 @@ const STYLES = [
   },
 ];
 
-export default class StyleTool extends Component {
-  get config() {
-    return this.args.data.getConfig();
-  }
-
+export default class StyleTool extends ToolBase {
   <template>
     <div class="ic-toolbar__menu">
       {{#each STYLES as |style|}}
