@@ -1,12 +1,14 @@
 @import "variables";
 @import "mixins";
 
+/*! rtl:begin:ignore */
 .d-ic-container {
   position: relative;
 }
 
 .d-ic {
   --ic-label-fade-factor: 2;
+  direction: ltr;
   position: relative;
   overflow: hidden;
   width: fit-content;
@@ -473,8 +475,14 @@
 @media (prefers-reduced-motion: reduce) {
   .d-ic,
   .d-ic *,
-  .d-ic-fs {
+  .d-ic-fs,
+  .ic-toolbar,
+  .ic-toolbar *,
+  .ic-toolbar__submenu,
+  .ic-toolbar__submenu * {
     animation: none;
     transition-duration: 0.01ms;
   }
 }
+
+/*! rtl:end:ignore */

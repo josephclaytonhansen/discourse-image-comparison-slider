@@ -1133,6 +1133,7 @@ export default class ImageCompare extends Component {
         {{#if this.beforeLabel}}
           <span
             class="d-ic__label d-ic__label--before"
+            dir="auto"
             aria-hidden="true"
           >{{this.beforeLabel}}</span>
         {{/if}}
@@ -1140,6 +1141,7 @@ export default class ImageCompare extends Component {
         {{#if this.afterLabel}}
           <span
             class="d-ic__label d-ic__label--after"
+            dir="auto"
             aria-hidden="true"
           >{{this.afterLabel}}</span>
         {{/if}}
@@ -1205,7 +1207,10 @@ export default class ImageCompare extends Component {
       </div>
 
       {{#if @data.caption}}
-        <figcaption class="d-ic__caption">{{@data.caption}}</figcaption>
+        <figcaption
+          class="d-ic__caption"
+          dir="auto"
+        >{{@data.caption}}</figcaption>
       {{/if}}
     </figure>
 
