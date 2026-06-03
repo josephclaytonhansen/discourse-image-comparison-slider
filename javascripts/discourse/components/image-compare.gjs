@@ -28,7 +28,6 @@ import ImageCompareToolbar, {
 } from "./image-compare-toolbar";
 
 const ZOOM_MIN = 1;
-const ZOOM_MAX = 5;
 const ZOOM_STEP = 0.5;
 const CONTROLS_HIDE_DELAY = 2000;
 const PAN_MOVE_THRESHOLD = 3;
@@ -280,8 +279,17 @@ export default class ImageCompare extends Component {
     return this.zoom <= ZOOM_MIN;
   }
 
+  get maxZoom() {
+    const value = parseInt(settings.max_zoom, 10);
+    return Number.isFinite(value) && value >= 2 ? value : 5;
+  }
+
   get atMaxZoom() {
-    return this.zoom >= ZOOM_MAX;
+    return this.zoom >= this.maxZoom;
+  }
+
+  get zoomEnabled() {
+    return settings.enable_zoom;
   }
 
   get containerStyle() {
@@ -522,7 +530,7 @@ export default class ImageCompare extends Component {
   }
 
   setZoom(newZoom, anchorX = null, anchorY = null) {
-    const clamped = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, newZoom));
+    const clamped = Math.max(ZOOM_MIN, Math.min(this.maxZoom, newZoom));
 
     if (clamped > ZOOM_MIN) {
       this.loadFullResolution();
@@ -580,7 +588,23 @@ export default class ImageCompare extends Component {
   }
 
   get showFullscreenButton() {
-    return !this.isPreview;
+    return !this.isPreview && settings.enable_fullscreen;
+  }
+
+  get showLightboxButton() {
+    return settings.enable_lightbox && this.hasLightbox;
+  }
+
+  get showControlsBar() {
+    return (
+      this.zoomEnabled || this.showLightboxButton || this.showFullscreenButton
+    );
+  }
+
+  get showControlsSeparator() {
+    return (
+      this.zoomEnabled && (this.showLightboxButton || this.showFullscreenButton)
+    );
   }
 
   get fullscreenIcon() {
@@ -732,7 +756,7 @@ export default class ImageCompare extends Component {
   }
 
   onWheel(event) {
-    if (!event.ctrlKey) {
+    if (!this.zoomEnabled || !event.ctrlKey) {
       return;
     }
     event.preventDefault();
@@ -768,7 +792,7 @@ export default class ImageCompare extends Component {
       y: event.clientY,
     });
 
-    if (this.pointers.size === 2) {
+    if (this.pointers.size === 2 && this.zoomEnabled) {
       const [a, b] = [...this.pointers.values()];
       this.pinchStart = {
         distance: Math.hypot(a.x - b.x, a.y - b.y) || 1,
@@ -1120,41 +1144,45 @@ export default class ImageCompare extends Component {
           >{{this.afterLabel}}</span>
         {{/if}}
 
-        <div
-          class={{concatClass
-            "d-ic__zoom-controls"
-            (if this.controlsVisible "is-visible")
-          }}
-          {{on "pointerenter" this.onControlsPointerEnter}}
-          {{on "pointerleave" this.onControlsPointerLeave}}
-        >
-          <DButton
-            class="d-ic__zoom-btn"
-            aria-label={{this.zoomInLabel}}
-            disabled={{this.atMaxZoom}}
-            @action={{this.zoomIn}}
-            @icon="magnifying-glass-plus"
-            @translatedTitle={{this.zoomInLabel}}
-          />
-          <DButton
-            class="d-ic__zoom-btn"
-            aria-label={{this.zoomOutLabel}}
-            disabled={{this.atMinZoom}}
-            @action={{this.zoomOut}}
-            @icon="magnifying-glass-minus"
-            @translatedTitle={{this.zoomOutLabel}}
-          />
-          <DButton
-            class="d-ic__zoom-btn"
-            aria-label={{this.resetZoomLabel}}
-            disabled={{not this.isZoomed}}
-            @action={{this.resetZoom}}
-            @icon="rotate-left"
-            @translatedTitle={{this.resetZoomLabel}}
-          />
-          {{#if this.showFullscreenButton}}
-            <div class="d-ic__controls-sep" aria-hidden="true"></div>
-            {{#if this.hasLightbox}}
+        {{#if this.showControlsBar}}
+          <div
+            class={{concatClass
+              "d-ic__zoom-controls"
+              (if this.controlsVisible "is-visible")
+            }}
+            {{on "pointerenter" this.onControlsPointerEnter}}
+            {{on "pointerleave" this.onControlsPointerLeave}}
+          >
+            {{#if this.zoomEnabled}}
+              <DButton
+                class="d-ic__zoom-btn"
+                aria-label={{this.zoomInLabel}}
+                disabled={{this.atMaxZoom}}
+                @action={{this.zoomIn}}
+                @icon="magnifying-glass-plus"
+                @translatedTitle={{this.zoomInLabel}}
+              />
+              <DButton
+                class="d-ic__zoom-btn"
+                aria-label={{this.zoomOutLabel}}
+                disabled={{this.atMinZoom}}
+                @action={{this.zoomOut}}
+                @icon="magnifying-glass-minus"
+                @translatedTitle={{this.zoomOutLabel}}
+              />
+              <DButton
+                class="d-ic__zoom-btn"
+                aria-label={{this.resetZoomLabel}}
+                disabled={{not this.isZoomed}}
+                @action={{this.resetZoom}}
+                @icon="rotate-left"
+                @translatedTitle={{this.resetZoomLabel}}
+              />
+            {{/if}}
+            {{#if this.showControlsSeparator}}
+              <div class="d-ic__controls-sep" aria-hidden="true"></div>
+            {{/if}}
+            {{#if this.showLightboxButton}}
               <DButton
                 class="d-ic__zoom-btn d-ic__lightbox-btn"
                 aria-label={{this.lightboxLabel}}
@@ -1163,15 +1191,17 @@ export default class ImageCompare extends Component {
                 @translatedTitle={{this.lightboxLabel}}
               />
             {{/if}}
-            <DButton
-              class="d-ic__zoom-btn d-ic__fullscreen-btn"
-              aria-label={{this.fullscreenLabel}}
-              @action={{this.toggleFullscreen}}
-              @icon={{this.fullscreenIcon}}
-              @translatedTitle={{this.fullscreenLabel}}
-            />
-          {{/if}}
-        </div>
+            {{#if this.showFullscreenButton}}
+              <DButton
+                class="d-ic__zoom-btn d-ic__fullscreen-btn"
+                aria-label={{this.fullscreenLabel}}
+                @action={{this.toggleFullscreen}}
+                @icon={{this.fullscreenIcon}}
+                @translatedTitle={{this.fullscreenLabel}}
+              />
+            {{/if}}
+          </div>
+        {{/if}}
       </div>
 
       {{#if @data.caption}}

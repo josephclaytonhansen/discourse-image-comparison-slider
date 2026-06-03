@@ -36,5 +36,23 @@ default_show_labels:
   default: true
   type: bool
 
+enable_zoom:
+  default: true
+  type: bool
+
+enable_lightbox:
+  default: true
+  type: bool
+
+enable_fullscreen:
+  default: true
+  type: bool
+
+max_zoom:
+  default: 5
+  type: integer
+  min: 2
+  max: 10
+
 
 

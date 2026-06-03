@@ -8,6 +8,10 @@ en:
       default_handle_style: Handle grip style.
       default_handle_color: Default handle color (empty for theme default).
       default_label_position: Default label position.
+      enable_zoom: Let readers zoom and pan inside the slider.
+      enable_lightbox: Show the button that opens the full-size images.
+      enable_fullscreen: Show the fullscreen button.
+      max_zoom: Maximum zoom level (2-10).
   image_compare:
     aria_label: "Image comparison slider"
     before_label: "Before"

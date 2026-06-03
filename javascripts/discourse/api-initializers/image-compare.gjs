@@ -72,6 +72,7 @@ class ImageCompareInit {
     const images = this.extractImages(wrap);
 
     if (!images.before?.previewSrc || !images.after?.previewSrc) {
+      wrap.replaceWith(...wrap.childNodes);
       return;
     }
 
