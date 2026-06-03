@@ -12,6 +12,7 @@ import DButton from "discourse/components/d-button";
 import concatClass from "discourse/helpers/concat-class";
 import icon from "discourse/helpers/d-icon";
 import { eq, not } from "discourse/truth-helpers";
+import dTrapTab from "discourse/ui-kit/modifiers/d-trap-tab";
 import { i18n } from "discourse-i18n";
 import { updateWrapAttribute } from "../lib/composer-utils";
 import { settingsMenuOptions } from "../lib/image-compare/menu";
@@ -635,10 +636,7 @@ export default class ImageCompare extends Component {
     this.isFullscreen = true;
     document.addEventListener("keydown", this.onFullscreenKeydown);
 
-    requestAnimationFrame(() => {
-      this.#animateFullscreen(false);
-      this.fullscreenPortal?.querySelector(".d-ic-fs")?.focus();
-    });
+    requestAnimationFrame(() => this.#animateFullscreen(false));
   }
 
   exitFullscreen() {
@@ -1224,6 +1222,7 @@ export default class ImageCompare extends Component {
           aria-label={{this.fullscreenLabel}}
           tabindex="-1"
           {{on "click" this.onOverlayClick}}
+          {{dTrapTab}}
         >
           <ImageCompare @data={{this.fullscreenChildData}} />
           <DButton
