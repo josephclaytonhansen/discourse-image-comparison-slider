@@ -19,7 +19,7 @@
   // Grabber knob size
   --ic-grabber-width: calc(7px * var(--ic-scale, 1));
   --ic-grabber-height: calc(44px * var(--ic-scale, 1));
-  --ic-knob-bg: var(--secondary);
+  --ic-knob-bg: var(--ic-line-color);
 
   // Circle style
   &.d-ic--handle-circle {

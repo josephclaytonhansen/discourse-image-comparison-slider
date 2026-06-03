@@ -249,37 +249,16 @@
   }
 
   &__grabber {
-    position: relative;
     width: var(--ic-grabber-width);
     height: var(--ic-grabber-height);
     flex-shrink: 0;
     border-radius: 999px;
-    background: rgb(from var(--ic-knob-bg) r g b / 0.95);
+    background: rgb(from var(--ic-knob-bg) r g b / 0.8);
     box-shadow: 0 1px 4px rgb(0 0 0 / 0.3);
-
-    &::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      margin: auto;
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgb(from var(--primary) r g b / 0.55);
-      box-shadow:
-        0 -7px rgb(from var(--primary) r g b / 0.55),
-        0 7px rgb(from var(--primary) r g b / 0.55);
-    }
 
     .d-ic--vertical & {
       width: var(--ic-grabber-height);
       height: var(--ic-grabber-width);
-
-      &::after {
-        box-shadow:
-          -7px 0 rgb(from var(--primary) r g b / 0.55),
-          7px 0 rgb(from var(--primary) r g b / 0.55);
-      }
     }
   }
 
