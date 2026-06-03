@@ -37,7 +37,9 @@ en:
 
         style: "Handle style"
         style_line: "Line"
+        style_thin: "Thin"
         style_circle: "Circle"
+        style_grabber: "Grabber"
 
         color: "Handle color"
 

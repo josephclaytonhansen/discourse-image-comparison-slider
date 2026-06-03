@@ -16,8 +16,13 @@
   --ic-arrow-stroke: none;
   --ic-arrow-stroke-width: 0;
 
+  // Grabber knob size
+  --ic-grabber-width: calc(7px * var(--ic-scale, 1));
+  --ic-grabber-height: calc(44px * var(--ic-scale, 1));
+  --ic-knob-bg: var(--secondary);
+
   // Circle style
-  &.d-ic--circle {
+  &.d-ic--handle-circle {
     --ic-circle-size: calc(50px * var(--ic-scale, 1));
     --ic-circle-border: 2px solid var(--ic-line-color);
     --ic-circle-blur: 5px;
@@ -27,5 +32,14 @@
     --ic-arrow-size: calc(var(--ic-circle-size) / 3);
     --ic-arrow-offset: 10%;
     --ic-arrow-hover-offset: 25%;
+  }
+
+  // Thin style: same divider line, thin outlined arrows
+  &.d-ic--handle-thin {
+    --ic-arrow-fill: none;
+    --ic-arrow-stroke: var(--ic-line-color);
+    --ic-arrow-stroke-width: 1;
+    --ic-arrow-offset: 0;
+    --ic-arrow-hover-offset: 20%;
   }
 }

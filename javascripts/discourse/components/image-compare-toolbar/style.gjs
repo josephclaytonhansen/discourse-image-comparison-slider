@@ -11,8 +11,16 @@ const STYLES = [
     label: i18nKey("style_line"),
   },
   {
+    value: "thin",
+    label: i18nKey("style_thin"),
+  },
+  {
     value: "circle",
     label: i18nKey("style_circle"),
+  },
+  {
+    value: "grabber",
+    label: i18nKey("style_grabber"),
   },
 ];
 

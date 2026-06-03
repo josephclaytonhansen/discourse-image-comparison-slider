@@ -17,6 +17,8 @@ default_handle_style:
   choices:
     - default
     - circle
+    - thin
+    - grabber
 
 default_handle_color:
   default: ""

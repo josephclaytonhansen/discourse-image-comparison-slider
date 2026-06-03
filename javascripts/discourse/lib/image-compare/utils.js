@@ -75,7 +75,7 @@ export function keyboardStep(key, current, shiftKey, orientation) {
 }
 
 const VALID_ORIENTATIONS = ["horizontal", "vertical"];
-const VALID_HANDLE_STYLES = ["default", "circle"];
+const VALID_HANDLE_STYLES = ["default", "circle", "thin", "grabber"];
 const HANDLE_COLOR_REGEX = /^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 
 /**

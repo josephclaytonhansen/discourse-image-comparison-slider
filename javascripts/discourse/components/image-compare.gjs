@@ -264,6 +264,14 @@ export default class ImageCompare extends Component {
     return this.args.data?.handleStyle || settings.default_handle_style;
   }
 
+  get handleKnobClass() {
+    const map = {
+      circle: "d-ic__circle",
+      grabber: "d-ic__grabber",
+    };
+    return map[this.handleStyle] ?? null;
+  }
+
   get isZoomed() {
     return this.zoom > 1;
   }
@@ -1012,7 +1020,7 @@ export default class ImageCompare extends Component {
         "d-ic"
         (if (eq this.orientation "vertical") "d-ic--vertical")
         (if this.isDragging "d-ic--dragging")
-        (if (eq this.handleStyle "circle") "d-ic--circle")
+        (concat "d-ic--handle-" this.handleStyle)
         (if this.showLabels (concat "d-ic--labels-" this.labelPosition))
         (if this.isSelected "d-ic--preview-selected")
         (if this.isZoomed "d-ic--zoomed")
@@ -1088,8 +1096,8 @@ export default class ImageCompare extends Component {
           {{on "keydown" this.onKeyDown}}
         >
           <div class="d-ic__line"></div>
-          {{#if (eq this.handleStyle "circle")}}
-            <div class="d-ic__circle"></div>
+          {{#if this.handleKnobClass}}
+            <div class={{this.handleKnobClass}}></div>
           {{/if}}
           <div class="d-ic__arrows">
             {{icon "ict-arrow" class="d-ic__arrow d-ic__arrow--left"}}
