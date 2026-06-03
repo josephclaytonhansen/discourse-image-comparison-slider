@@ -45,6 +45,7 @@ export default class CaptionTool extends ToolBase {
         <input
           type="text"
           class="ic-toolbar__input ic-toolbar__input--caption"
+          aria-label={{i18nKey "caption"}}
           placeholder={{i18nKey "caption_placeholder"}}
           value={{this.display}}
           {{on "input" this.onInput}}

@@ -61,6 +61,7 @@ export default class LabelsTool extends ToolBase {
         <span class="ic-toolbar__menu-label">{{i18nKey "show_labels"}}</span>
         <DToggleSwitch
           @state={{this.showLabels}}
+          aria-label={{i18nKey "show_labels"}}
           {{on "click" this.toggleShowLabels}}
         />
       </div>
@@ -80,6 +81,7 @@ export default class LabelsTool extends ToolBase {
         <input
           type="text"
           class="ic-toolbar__input ic-toolbar__input--label"
+          aria-label={{i18nKey "before_label_placeholder"}}
           placeholder={{i18nKey "before_label_placeholder"}}
           value={{this.displayBefore}}
           {{on "input" (fn this.onInput "beforeLabel")}}
@@ -91,6 +93,7 @@ export default class LabelsTool extends ToolBase {
         <input
           type="text"
           class="ic-toolbar__input ic-toolbar__input--label"
+          aria-label={{i18nKey "after_label_placeholder"}}
           placeholder={{i18nKey "after_label_placeholder"}}
           value={{this.displayAfter}}
           {{on "input" (fn this.onInput "afterLabel")}}

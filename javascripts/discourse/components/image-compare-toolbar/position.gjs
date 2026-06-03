@@ -5,6 +5,7 @@ import { action } from "@ember/object";
 import DButton from "discourse/components/d-button";
 import withEventValue from "discourse/helpers/with-event-value";
 import { eq } from "discourse/truth-helpers";
+import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
 import ToolBase from "./tool-base";
 
 export default class PositionTool extends ToolBase {
@@ -35,6 +36,7 @@ export default class PositionTool extends ToolBase {
       <input
         type="range"
         class="ic-toolbar__slider"
+        aria-label={{i18nKey "position"}}
         value={{this.display}}
         min="0"
         max="100"

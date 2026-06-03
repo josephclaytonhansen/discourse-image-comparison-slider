@@ -2,6 +2,7 @@ import { tracked } from "@glimmer/tracking";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import withEventValue from "discourse/helpers/with-event-value";
+import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
 import { isValidHandleColor } from "../../lib/image-compare/utils";
 import ToolBase from "./tool-base";
 
@@ -72,6 +73,7 @@ export default class ColorTool extends ToolBase {
         type="color"
         value={{this.config.handleColor}}
         class="ic-toolbar__color-input"
+        aria-label={{i18nKey "color"}}
         {{on "input" (withEventValue this.update)}}
         {{on "change" (withEventValue this.flush)}}
       />
@@ -79,6 +81,7 @@ export default class ColorTool extends ToolBase {
         type="text"
         class="ic-toolbar__input ic-toolbar__input--code"
         placeholder="#ffffff"
+        aria-label={{i18nKey "color"}}
         value={{this.config.handleColor}}
         {{on "blur" this.commitText}}
         {{on "keydown" this.onKeydown}}
