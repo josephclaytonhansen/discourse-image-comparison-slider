@@ -493,6 +493,24 @@ export default class ImageCompare extends Component {
       return;
     }
 
+    if (this.zoomEnabled) {
+      if (event.key === "+" || event.key === "=") {
+        event.preventDefault();
+        this.zoomIn();
+        return;
+      }
+      if (event.key === "-") {
+        event.preventDefault();
+        this.zoomOut();
+        return;
+      }
+      if (event.key === "0") {
+        event.preventDefault();
+        this.resetZoom();
+        return;
+      }
+    }
+
     const newPos = keyboardStep(
       event.key,
       this.position,
