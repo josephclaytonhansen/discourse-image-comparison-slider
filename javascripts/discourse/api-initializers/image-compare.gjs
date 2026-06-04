@@ -9,6 +9,7 @@ import richEditorExtension from "../lib/rich-editor-extension";
 
 class ImageCompareInit {
   @service previewState;
+  @service currentUser;
 
   constructor(owner, api) {
     setOwner(this, owner);
@@ -46,6 +47,7 @@ class ImageCompareInit {
         group: "insertions",
         icon: "ict-image-compare",
         title: themePrefix("image_compare.composer.insert_slider"),
+        condition: () => this.userAllowed,
         action: (toolbarEvent) => {
           if (toolbarEvent.commands) {
             toolbarEvent.commands.insertImageCompare();
@@ -60,6 +62,22 @@ class ImageCompareInit {
         },
       });
     });
+  }
+
+  get userAllowed() {
+    const allowed = settings.allowed_groups
+      .split("|")
+      .filter(Boolean)
+      .map(Number);
+
+    if (!allowed.length) {
+      return false;
+    }
+
+    const groups = this.currentUser?.groups ?? [];
+    return groups.some(
+      (group) => allowed.includes(0) || allowed.includes(group.id)
+    );
   }
 
   renderSlider(
