@@ -121,7 +121,10 @@ body.is-dragging * {
 
     &[aria-expanded="true"] {
       .d-icon {
-        color: var(--tertiary-high);
+        color: light-dark(
+          oklch(from var(--tertiary-high) 60% c h),
+          oklch(from var(--tertiary-high) 90% c h)
+        );
       }
     }
 
@@ -293,12 +296,12 @@ body.is-dragging * {
   }
 
   &.is-active {
-    background: rgb(var(--tertiary-rgb), 0.15);
-    color: var(--tertiary);
-
-    .d-icon {
-      color: var(--tertiary);
-    }
+    background: rgb(var(--tertiary-rgb), 0.25);
+    color: light-dark(
+      oklch(from var(--tertiary) 40% c h),
+      oklch(from var(--tertiary) 80% c h)
+    );
+    font-weight: 500;
   }
 }
 
