@@ -1,6 +1,7 @@
 import { tracked } from "@glimmer/tracking";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
+import DButton from "discourse/components/d-button";
 import withEventValue from "discourse/helpers/with-event-value";
 import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
 import { isValidHandleColor } from "../../lib/image-compare/utils";
@@ -16,6 +17,18 @@ export default class ColorTool extends ToolBase {
     }
 
     super.willDestroy(...arguments);
+  }
+
+  get displayColor() {
+    const color = this.config.handleColor || settings.default_handle_color;
+    if (color) {
+      return color;
+    }
+
+    const secondary = getComputedStyle(document.documentElement)
+      .getPropertyValue("--secondary")
+      .trim();
+    return secondary;
   }
 
   @action
@@ -82,7 +95,7 @@ export default class ColorTool extends ToolBase {
     <div class="ic-toolbar__menu">
       <input
         type="color"
-        value={{this.config.handleColor}}
+        value={{this.displayColor}}
         class="ic-toolbar__color-input"
         aria-label={{i18nKey "color"}}
         {{on "input" (withEventValue this.update)}}
@@ -91,7 +104,7 @@ export default class ColorTool extends ToolBase {
       <input
         type="text"
         class="ic-toolbar__input ic-toolbar__input--code"
-        placeholder="#ffffff"
+        placeholder={{this.displayColor}}
         aria-label={{i18nKey "color"}}
         value={{this.config.handleColor}}
         {{on "blur" this.commitText}}
