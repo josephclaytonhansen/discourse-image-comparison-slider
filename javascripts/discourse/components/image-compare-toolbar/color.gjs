@@ -67,6 +67,17 @@ export default class ColorTool extends ToolBase {
     this.pending = null;
   }
 
+  @action
+  reset() {
+    if (this.animationFrame) {
+      cancelAnimationFrame(this.animationFrame);
+      this.animationFrame = null;
+    }
+
+    this.pending = null;
+    this.args.data.updateSetting("handleColor", "");
+  }
+
   <template>
     <div class="ic-toolbar__menu">
       <input
@@ -86,6 +97,15 @@ export default class ColorTool extends ToolBase {
         {{on "blur" this.commitText}}
         {{on "keydown" this.onKeydown}}
       />
+      {{#if this.config.handleColor}}
+        <DButton
+          class="btn-transparent ic-toolbar__button ic-toolbar__button--reset-color"
+          @icon="clock-rotate-left"
+          @action={{this.reset}}
+          @preventFocus={{true}}
+          title={{i18nKey "color_reset"}}
+        />
+      {{/if}}
     </div>
   </template>
 }

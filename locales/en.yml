@@ -47,6 +47,7 @@ en:
         style_grabber: "Grabber"
 
         color: "Handle color"
+        color_reset: "Reset to theme default"
 
         label: "Labels"
         label_position_start: "Start"

@@ -329,6 +329,12 @@ body.is-dragging * {
   }
 }
 
+.ic-toolbar__button--reset-color {
+  span {
+    display: none;
+  }
+}
+
 input.ic-toolbar__input {
   min-width: 0;
   margin-bottom: 0;
