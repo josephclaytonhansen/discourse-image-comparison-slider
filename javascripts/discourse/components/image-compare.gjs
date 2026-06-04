@@ -688,9 +688,9 @@ export default class ImageCompare extends Component {
       return false;
     }
 
-    const source = this.containerElement;
+    const source = this.viewportElement;
     const overlay = this.fullscreenPortal?.querySelector(".d-ic-fs");
-    const target = overlay?.querySelector(".d-ic");
+    const target = overlay?.querySelector(".d-ic__viewport");
     if (!source || !overlay || !target) {
       return false;
     }
@@ -713,6 +713,16 @@ export default class ImageCompare extends Component {
         : [{ backgroundColor: clear }, { backgroundColor: opaque }],
       options
     );
+
+    // The caption can't be morphed with the image, so fade it instead.
+    overlay
+      .querySelector(".d-ic__caption")
+      ?.animate(
+        closing
+          ? [{ opacity: 1 }, { opacity: 0 }]
+          : [{ opacity: 0 }, { opacity: 1 }],
+        options
+      );
 
     return target.animate(
       (closing ? ["none", flip] : [flip, "none"]).map((transform) => ({
