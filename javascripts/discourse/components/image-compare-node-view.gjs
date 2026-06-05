@@ -4,10 +4,10 @@ import { action } from "@ember/object";
 import { next } from "@ember/runloop";
 import { service } from "@ember/service";
 import ToolbarButtons from "discourse/components/composer/toolbar-buttons";
-import DButton from "discourse/components/d-button";
-import icon from "discourse/helpers/d-icon";
 import { ToolbarBase } from "discourse/lib/composer/toolbar";
 import { not } from "discourse/truth-helpers";
+import DButton from "discourse/ui-kit/d-button";
+import icon from "discourse/ui-kit/helpers/d-icon";
 import { composerI18n as i18nKey } from "../lib/image-compare/i18n";
 import { MENU_PADDING, settingsMenuOptions } from "../lib/image-compare/menu";
 import ImageCompareUiState from "../lib/image-compare/ui-state";
@@ -505,7 +505,7 @@ export default class ImageCompareNodeView extends Component {
         </div>
       </div>
     {{else if this.hasImages}}
-      {{! template-lint-disable no-invalid-interactive }}
+
       <div class="composer-ic-node__preview" contenteditable="false">
         <ImageCompare @data={{this.data}} />
       </div>

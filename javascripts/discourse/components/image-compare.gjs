@@ -8,10 +8,10 @@ import { cancel, later } from "@ember/runloop";
 import { service } from "@ember/service";
 import { trustHTML } from "@ember/template";
 import { modifier } from "ember-modifier";
-import DButton from "discourse/components/d-button";
-import concatClass from "discourse/helpers/concat-class";
-import icon from "discourse/helpers/d-icon";
 import { eq, not } from "discourse/truth-helpers";
+import DButton from "discourse/ui-kit/d-button";
+import concatClass from "discourse/ui-kit/helpers/d-concat-class";
+import icon from "discourse/ui-kit/helpers/d-icon";
 import dTrapTab from "discourse/ui-kit/modifiers/d-trap-tab";
 import { i18n } from "discourse-i18n";
 import { updateWrapAttribute } from "../lib/composer-utils";
@@ -296,7 +296,7 @@ export default class ImageCompare extends Component {
   get containerStyle() {
     const pos = this.displayPosition / 100;
     const handleColor =
-      this.args.data?.handleColor || settings.default_handle_color;
+      this.currentConfig.handleColor || settings.default_handle_color;
     const color = handleColor ? `; --ic-line-color: ${handleColor}` : "";
 
     return trustHTML(
@@ -1078,12 +1078,13 @@ export default class ImageCompare extends Component {
       role="group"
       aria-label={{this.ariaLabel}}
       style={{this.containerStyle}}
+      ...attributes
       {{didInsert this.setup}}
       {{didResize this.handleResize}}
       {{this.clickOutsideHandler}}
     >
-      {{! template-lint-disable no-invalid-interactive }}
-      {{! template-lint-disable no-pointer-down-event-binding }}
+      {{! eslint-disable ember/template-no-invalid-interactive }}
+      {{! eslint-disable ember/template-no-pointer-down-event-binding }}
       <div
         class={{concatClass
           "d-ic__viewport"
@@ -1128,7 +1129,7 @@ export default class ImageCompare extends Component {
           {{/if}}
         </div>
 
-        {{! template-lint-disable no-pointer-down-event-binding }}
+        {{! eslint-disable ember/template-no-pointer-down-event-binding }}
         <div
           class="d-ic__handle"
           role="slider"
@@ -1242,7 +1243,7 @@ export default class ImageCompare extends Component {
 
     {{#if this.isFullscreen}}
       {{#in-element this.fullscreenPortal}}
-        {{! template-lint-disable no-invalid-interactive }}
+
         <div
           class="d-ic-fs"
           role="dialog"

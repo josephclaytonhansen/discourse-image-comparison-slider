@@ -2,9 +2,10 @@ import { tracked } from "@glimmer/tracking";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
-import DButton from "discourse/components/d-button";
 import withEventValue from "discourse/helpers/with-event-value";
 import { eq } from "discourse/truth-helpers";
+import DButton from "discourse/ui-kit/d-button";
+import concatClass from "discourse/ui-kit/helpers/d-concat-class";
 import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
 import ToolBase from "./tool-base";
 
@@ -32,7 +33,7 @@ export default class PositionTool extends ToolBase {
   }
 
   <template>
-    <div class="ic-toolbar__menu">
+    <div class="ic-toolbar__menu" ...attributes>
       <input
         type="range"
         class="ic-toolbar__slider"
@@ -47,8 +48,10 @@ export default class PositionTool extends ToolBase {
         @action={{fn @data.updateSetting "position" 50}}
         @icon="clock-rotate-left"
         @preventFocus={{true}}
-        class="btn-transparent btn-small ic-toolbar__menu-button ic-toolbar__action ic-toolbar__action--revert
-          {{if (eq this.display 50) 'is-hidden'}}"
+        class={{concatClass
+          "btn-transparent btn-small ic-toolbar__menu-button ic-toolbar__action ic-toolbar__action--revert"
+          (if (eq this.display 50) "is-hidden")
+        }}
       />
     </div>
   </template>

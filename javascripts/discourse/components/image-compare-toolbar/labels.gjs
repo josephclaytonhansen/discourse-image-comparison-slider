@@ -2,9 +2,10 @@ import { tracked } from "@glimmer/tracking";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
-import DButton from "discourse/components/d-button";
-import DToggleSwitch from "discourse/components/d-toggle-switch";
 import { eq } from "discourse/truth-helpers";
+import DButton from "discourse/ui-kit/d-button";
+import DToggleSwitch from "discourse/ui-kit/d-toggle-switch";
+import concatClass from "discourse/ui-kit/helpers/d-concat-class";
 import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
 import ToolBase from "./tool-base";
 
@@ -56,7 +57,7 @@ export default class LabelsTool extends ToolBase {
   }
 
   <template>
-    <div class="ic-toolbar__menu ic-toolbar__menu--column">
+    <div class="ic-toolbar__menu ic-toolbar__menu--column" ...attributes>
       <div class="ic-toolbar__menu-row">
         <span class="ic-toolbar__menu-label">{{i18nKey "show_labels"}}</span>
         <DToggleSwitch
@@ -71,8 +72,10 @@ export default class LabelsTool extends ToolBase {
             @icon={{pos.icon}}
             @action={{fn @data.updateSetting "labelPosition" pos.value}}
             @preventFocus={{true}}
-            class="btn-flat ic-toolbar__menu-button
-              {{if (eq this.config.labelPosition pos.value) 'is-active'}}"
+            class={{concatClass
+              "btn-flat ic-toolbar__menu-button"
+              (if (eq this.config.labelPosition pos.value) "is-active")
+            }}
             title={{i18nKey pos.titleKey}}
           />
         {{/each}}

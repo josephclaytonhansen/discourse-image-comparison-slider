@@ -3,10 +3,12 @@
 
 body.is-dragging,
 body.is-dragging * {
+  // !important: wins over per-element cursor rules while dragging the toolbar
   cursor: grabbing !important;
 }
 
 .is-manually-positioned {
+  // !important: overrides float-kit's inline positioning once the user drags
   left: 0 !important;
   top: 0 !important;
   transform: translate3d(var(--drag-tx, 0), var(--drag-ty, 0), 0) !important;
@@ -14,6 +16,7 @@ body.is-dragging * {
 
 [data-identifier^="composer-ic"],
 [data-identifier^="preview-ic"] {
+  // !important: disables float-kit's menu entrance animation
   animation: none !important;
 
   button span[aria-hidden="true"] {
@@ -21,6 +24,7 @@ body.is-dragging * {
   }
 
   .toolbar__button {
+    // !important: overrides core composer toolbar button background
     background-color: var(--secondary) !important;
     border-radius: var(--d-border-radius);
     color: var(--primary-medium);
@@ -110,6 +114,7 @@ body.is-dragging * {
     color: var(--primary-high);
 
     &:hover {
+      // !important: wins over core .btn hover background/color rules
       background: rgb(var(--tertiary-rgb)) !important;
       color: var(--secondary) !important;
       cursor: pointer;
@@ -228,6 +233,7 @@ body.is-dragging * {
 }
 
 .ic-toolbar__submenu {
+  // !important: disables float-kit's menu entrance animation
   animation: none !important;
   background: transparent;
   border: 0;
@@ -306,7 +312,7 @@ body.is-dragging * {
 }
 
 .ic-toolbar__menu-label {
-  margin-right: auto;
+  margin-inline-end: auto;
   color: var(--primary-high);
   font-size: var(--font-down-1);
   font-weight: 600;
@@ -372,18 +378,19 @@ input.ic-toolbar__input {
   align-items: center;
 
   .ic-toolbar__input {
-    padding-right: calc(var(--space-2) + 1.25em);
+    padding-inline-end: calc(var(--space-2) + 1.25em);
   }
 }
 
 .ic-toolbar__input-clear {
   position: absolute;
-  right: var(--space-2);
+  inset-inline-end: var(--space-2);
   top: 50%;
   transform: translateY(-50%);
   padding: var(--space-half);
 
   .d-icon {
+    // !important: wins over core .btn .d-icon color rules
     color: var(--primary-medium) !important;
     font-size: var(--font-down-1);
 

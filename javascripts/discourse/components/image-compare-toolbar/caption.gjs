@@ -1,7 +1,7 @@
 import { tracked } from "@glimmer/tracking";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
-import DButton from "discourse/components/d-button";
+import DButton from "discourse/ui-kit/d-button";
 import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
 import ToolBase from "./tool-base";
 
@@ -40,7 +40,7 @@ export default class CaptionTool extends ToolBase {
   }
 
   <template>
-    <div class="ic-toolbar__menu">
+    <div class="ic-toolbar__menu" ...attributes>
       <div class="ic-toolbar__input-wrapper">
         <input
           type="text"

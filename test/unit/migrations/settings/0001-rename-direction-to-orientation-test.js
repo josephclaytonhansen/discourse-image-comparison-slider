@@ -15,7 +15,10 @@ module(
 
       assert.deepEqual(
         Array.from(result),
-        Array.from(new Map(Object.entries({ default_orientation: "vertical" })))
+        Array.from(
+          new Map(Object.entries({ default_orientation: "vertical" }))
+        ),
+        "default_direction is renamed to default_orientation"
       );
     });
 
@@ -38,7 +41,8 @@ module(
               default_orientation: "horizontal",
             })
           )
-        )
+        ),
+        "unrelated settings are preserved alongside the rename"
       );
     });
 
@@ -51,13 +55,21 @@ module(
 
       const result = migrate(settings);
 
-      assert.deepEqual(Array.from(result), Array.from(settings));
+      assert.deepEqual(
+        Array.from(result),
+        Array.from(settings),
+        "settings are unchanged when default_direction is absent"
+      );
     });
 
     test("no-op on empty settings", function (assert) {
       const settings = new Map(Object.entries({}));
       const result = migrate(settings);
-      assert.deepEqual(Array.from(result), Array.from(settings));
+      assert.deepEqual(
+        Array.from(result),
+        Array.from(settings),
+        "empty settings stay empty"
+      );
     });
   }
 );

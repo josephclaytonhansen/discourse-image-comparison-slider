@@ -1,7 +1,7 @@
 import { fn } from "@ember/helper";
-import DButton from "discourse/components/d-button";
-import concatClass from "discourse/helpers/concat-class";
 import { eq } from "discourse/truth-helpers";
+import DButton from "discourse/ui-kit/d-button";
+import concatClass from "discourse/ui-kit/helpers/d-concat-class";
 import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
 import ToolBase from "./tool-base";
 
@@ -26,7 +26,7 @@ const STYLES = [
 
 export default class StyleTool extends ToolBase {
   <template>
-    <div class="ic-toolbar__menu">
+    <div class="ic-toolbar__menu" ...attributes>
       {{#each STYLES as |style|}}
         <DButton
           @action={{fn @data.updateSetting "handleStyle" style.value}}

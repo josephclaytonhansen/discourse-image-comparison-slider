@@ -6,11 +6,11 @@ import { action } from "@ember/object";
 import { next } from "@ember/runloop";
 import { service } from "@ember/service";
 import { modifier } from "ember-modifier";
-import DButton from "discourse/components/d-button";
 import DMenu from "discourse/float-kit/components/d-menu";
-import concatClass from "discourse/helpers/concat-class";
-import icon from "discourse/helpers/d-icon";
 import { eq } from "discourse/truth-helpers";
+import DButton from "discourse/ui-kit/d-button";
+import concatClass from "discourse/ui-kit/helpers/d-concat-class";
+import icon from "discourse/ui-kit/helpers/d-icon";
 import { settingsI18n as i18nKey } from "../lib/image-compare/i18n";
 import dragPanel from "../modifiers/drag-panel";
 import CaptionTool from "./image-compare-toolbar/caption";
@@ -306,12 +306,13 @@ export default class ImageCompareToolbar extends Component {
         (if this.isCollapsedOpen "ic-toolbar--open")
         (if this.openToolKey "ic-toolbar--has-open-tool")
       }}
+      ...attributes
       {{this.closeMenuOnOutsideClick}}
       {{this.restoreDragPosition}}
     >
       {{#if this.isCollapsed}}
         <div class="ic-toolbar__pill ic-toolbar__pill--settings">
-          {{! template-lint-disable no-pointer-down-event-binding }}
+          {{! eslint-disable ember/template-no-pointer-down-event-binding }}
           <DMenu
             @placement="top"
             @identifier="ic-toolbar-settings-menu"
@@ -395,7 +396,7 @@ export default class ImageCompareToolbar extends Component {
                   @preventFocus={{true}}
                 />
               {{else}}
-                {{! template-lint-disable no-pointer-down-event-binding }}
+                {{! eslint-disable ember/template-no-pointer-down-event-binding }}
                 <DMenu
                   @placement="bottom"
                   @identifier="ic-toolbar-{{tool.key}}-menu"

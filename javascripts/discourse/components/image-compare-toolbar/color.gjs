@@ -1,8 +1,8 @@
 import { tracked } from "@glimmer/tracking";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
-import DButton from "discourse/components/d-button";
 import withEventValue from "discourse/helpers/with-event-value";
+import DButton from "discourse/ui-kit/d-button";
 import { settingsI18n as i18nKey } from "../../lib/image-compare/i18n";
 import { isValidHandleColor } from "../../lib/image-compare/utils";
 import ToolBase from "./tool-base";
@@ -92,7 +92,7 @@ export default class ColorTool extends ToolBase {
   }
 
   <template>
-    <div class="ic-toolbar__menu">
+    <div class="ic-toolbar__menu" ...attributes>
       <input
         type="color"
         value={{this.displayColor}}
