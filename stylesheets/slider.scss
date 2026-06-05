@@ -315,8 +315,9 @@
     z-index: 5;
     padding: var(--space-2) var(--space-3);
     border-radius: 3px;
-    color: var(--secondary);
-    background: rgb(from var(--primary) r g b / 0.33);
+    // intentionally fixed colors (black background + white text)
+    color: #fff;
+    background: rgb(0 0 0 / 0.4);
     font-size: var(--font-down-1-rem);
     line-height: 1.2;
     pointer-events: none;
