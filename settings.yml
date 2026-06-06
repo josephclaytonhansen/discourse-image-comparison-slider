@@ -1,18 +1,63 @@
-default_direction:
+allowed_groups:
+  type: list
+  list_type: group
+  default: "0"
+
+default_orientation:
   default: horizontal
   type: enum
   choices:
     - horizontal
     - vertical
-add_images_prompt:
-  default: "Add two images here. Change 'data-direction-horizontal' to 'data-direction-vertical' for a vertical slider."
-button_icon:
-  default: "bolt"
-button_text:
-  default: "Image comparison slider"
-handle_arrow_style:
+
+default_position:
+  default: 50
+  type: integer
+  min: 0
+  max: 100
+
+default_handle_style:
+  default: default
   type: enum
-  default: line
   choices:
-    - line
-    - solid
+    - default
+    - circle
+    - thin
+    - grabber
+
+default_handle_color:
+  default: ""
+  type: string
+
+default_label_position:
+  default: end
+  type: enum
+  choices:
+    - start
+    - center
+    - end
+
+default_show_labels:
+  default: true
+  type: bool
+
+enable_zoom:
+  default: true
+  type: bool
+
+enable_lightbox:
+  default: true
+  type: bool
+
+enable_fullscreen:
+  default: true
+  type: bool
+
+max_zoom:
+  default: 5
+  type: integer
+  min: 2
+  max: 10
+
+
+

@@ -1,8 +1,69 @@
 en:
   theme_metadata:
-    description: A theme component that creates draggable image comparison sliders.
+    description: A theme component for before/after image comparison sliders.
     settings:
-      button_icon: Choose an icon for the slider button in the composer.
-      button_text: Choose the tooltip text for the button in the composer.
-      add_images_prompt: Choose the placeholder text that appears in the composer upon button click. 
-      handle_arrow_style: Choose the style of the < > icons around the draggable handle
+      allowed_groups: Groups allowed to insert an image comparison slider.
+      default_orientation: Default slider orientation.
+      default_position: Default handle start position (0-100).
+      default_show_labels: Show before/after labels by default.
+      default_handle_style: Handle grip style.
+      default_handle_color: Default handle color (empty for theme default).
+      default_label_position: Default label position.
+      enable_zoom: Let readers zoom and pan inside the slider.
+      enable_lightbox: Show the button that opens the full-size images.
+      enable_fullscreen: Show the fullscreen button.
+      max_zoom: Maximum zoom level (2-10).
+  image_compare:
+    aria_label: "Image comparison slider"
+    before_label: "Before"
+    after_label: "After"
+    zoom:
+      in: "Zoom in"
+      out: "Zoom out"
+      reset: "Reset zoom"
+    lightbox:
+      open: "View full images"
+    fullscreen:
+      enter: "View fullscreen"
+      exit: "Exit fullscreen"
+    composer:
+      insert_slider: "Image comparison"
+      size_mismatch: "The before and after images are different sizes — the second image is cropped to fit. Use same-size images for the best alignment."
+      toolbar:
+        edit: "Edit images"
+        validate: "Done editing"
+        settings: "Settings"
+        delete: "Delete comparison"
+      settings:
+        orientation: "Orientation"
+        orientation_horizontal: "Horizontal"
+        orientation_vertical: "Vertical"
+        position: "Starting position"
+        show_labels: "Show"
+
+        style: "Handle style"
+        style_line: "Line"
+        style_thin: "Thin"
+        style_circle: "Circle"
+        style_grabber: "Grabber"
+
+        color: "Handle color"
+        color_reset: "Reset to theme default"
+
+        label: "Labels"
+        label_position_start: "Start"
+        label_position_center: "Center"
+        label_position_end: "End"
+        before_label_placeholder: "Before label…"
+        after_label_placeholder: "After label…"
+
+        caption: "Caption"
+        caption_placeholder: "Optional caption…"
+        clear: "Clear"
+
+        settings: "Settings"
+
+      edit:
+        swap: "Swap images"
+        before_slot: "Before"
+        after_slot: "After"
