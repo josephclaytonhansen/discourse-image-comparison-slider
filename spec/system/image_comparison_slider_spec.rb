@@ -5,19 +5,17 @@ require_relative "page_objects/components/image_compare"
 RSpec.describe "Image Comparison Slider", system: true do
   let!(:theme) { upload_theme_component }
 
-  fab!(:current_user) { Fabricate(:user) }
+  fab!(:current_user, :user)
   fab!(:topic)
   fab!(:upload_1) { Fabricate(:image_upload, width: 800, height: 600) }
   fab!(:upload_2) { Fabricate(:image_upload, width: 800, height: 600) }
 
-  fab!(:post) do
-    Fabricate(:post, topic: topic, raw: <<~MD)
+  fab!(:post) { Fabricate(:post, topic: topic, raw: <<~MD) }
       [wrap=image-compare]
       ![before](#{upload_1.url})
       ![after](#{upload_2.url})
       [/wrap]
     MD
-  end
 
   let(:image_compare) { PageObjects::Components::ImageCompare.new }
 
@@ -70,14 +68,12 @@ RSpec.describe "Image Comparison Slider", system: true do
   end
 
   context "with the legacy markup format" do
-    fab!(:legacy_post) do
-      Fabricate(:post, topic: topic, raw: <<~MD)
+    fab!(:legacy_post) { Fabricate(:post, topic: topic, raw: <<~MD) }
         [wrap=compare image-comparison-slider=true]
         ![before](#{upload_1.url})
         ![after](#{upload_2.url})
         [/wrap]
       MD
-    end
 
     before { cook_post(legacy_post) }
 
@@ -89,7 +85,7 @@ RSpec.describe "Image Comparison Slider", system: true do
   end
 
   context "with allowed_groups restricted" do
-    fab!(:allowed_group) { Fabricate(:group) }
+    fab!(:allowed_group, :group)
     fab!(:allowed_user) { Fabricate(:user, groups: [allowed_group]) }
 
     let(:topic_page) { PageObjects::Pages::Topic.new }
