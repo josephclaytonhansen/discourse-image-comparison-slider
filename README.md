@@ -63,19 +63,19 @@ You have access to the following options:
 
 ## Settings
 
-| Setting | Description |
-| ------------------------ | ------------------------------²---------------------------------------- |
-| `allowed_groups` | Groups allowed to insert a slider (group `everyone` = no restriction). |
-| `default_orientation` | Default slider orientation (horizontal or vertical). |
-| `default_position` | Default divider position (0–100). |
-| `default_handle_style` | Default handle style. |
-| `default_handle_color` | Default handle color (empty uses the theme color). |
-| `default_label_position` | Default label position. |
-| `default_show_labels` | Show before/after labels by default. |
-| `enable_zoom` | Allow readers to zoom and pan inside the slider. |
-| `enable_lightbox` | Show the button that opens the full-size images. |
-| `enable_fullscreen` | Show the fullscreen button. |
-| `max_zoom` | Maximum zoom level (2–10). |
+| Setting                  | Description                                                            |
+| ------------------------ | ---------------------------------------------------------------------- |
+| `allowed_groups`         | Groups allowed to insert a slider (group `everyone` = no restriction). |
+| `default_orientation`    | Default slider orientation (horizontal or vertical).                   |
+| `default_position`       | Default divider position (0–100).                                      |
+| `default_handle_style`   | Default handle style.                                                  |
+| `default_handle_color`   | Default handle color (empty uses the theme color).                     |
+| `default_label_position` | Default label position.                                                |
+| `default_show_labels`    | Show before/after labels by default.                                   |
+| `enable_zoom`            | Allow readers to zoom and pan inside the slider.                       |
+| `enable_lightbox`        | Show the button that opens the full-size images.                       |
+| `enable_fullscreen`      | Show the fullscreen button.                                            |
+| `max_zoom`               | Maximum zoom level (2–10).                                             |
 
 ## Compatibility
 
